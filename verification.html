@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYC Verification | F.D.S SecureVault</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:radial-gradient(circle at top,#1e1b4b,#020617);
+    color:white;
+    padding:40px 7%;
+}
+
+.page-title h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.page-title p{
+    color:#94a3b8;
+    margin-bottom:35px;
+}
+
+.kyc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card h3{
+    margin-bottom:20px;
+}
+
+.status-box{
+    padding:18px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.05);
+    margin-bottom:20px;
+}
+
+.status{
+    font-weight:700;
+}
+
+.status.NOT_SUBMITTED{
+    color:#94a3b8;
+}
+
+.status.PENDING{
+    color:#facc15;
+}
+
+.status.APPROVED{
+    color:#22c55e;
+}
+
+.status.REJECTED{
+    color:#ef4444;
+}
+
+.upload-box{
+    border:2px dashed rgba(255,255,255,0.15);
+    border-radius:16px;
+    padding:35px;
+    text-align:center;
+    margin-bottom:20px;
+    color:#94a3b8;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#94a3b8;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:rgba(255,255,255,0.06);
+    color:white;
+    margin-bottom:18px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(45deg,#9333ea,#ec4899);
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.info{
+    color:#94a3b8;
+    line-height:1.7;
+    font-size:14px;
+}
+
+@media(max-width:900px){
+
+    .kyc-grid{
+        grid-template-columns:1fr;
+    }
+
+    body{
+        padding:25px 5%;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="page-title">
+    <h1>Identity Verification</h1>
+    <p>Verify your account to unlock full platform access.</p>
+</div>
+
+<div class="kyc-grid">
+
+    <div class="card">
+
+        <h3>Verification Status</h3>
+
+        <div class="status-box">
+            KYC Status:
+            <span class="status" id="kycStatus">
+                NOT_SUBMITTED
+            </span>
+        </div>
+
+        <p class="info">
+            Complete verification to activate secure features and account protection.
+        </p>
+
+        <h3 style="margin-top:25px;">Document Upload</h3>
+
+<div class="upload-box">
+
+    <input
+        type="file"
+        id="idFront"
+        accept="image/*"
+        style="margin-bottom:10px;"
+    >
+
+    Upload National ID / Passport / Driver License
+
+</div>
+
+       <div class="upload-box">
+
+    <input
+        type="file"
+        id="idBack"
+        accept="image/*"
+        style="margin-bottom:10px;"
+    >
+
+    Upload Back Side (Optional)
+
+</div>
+
+    </div>
+
+   <div class="card">
+
+    <h3>Identity Information</h3>
+
+    <label>Full Name</label>
+    <input type="text" id="fullName" placeholder="Enter full legal name">
+
+    <label>Date of Birth</label>
+    <input type="date" id="dob">
+
+    <label>Country</label>
+    <input type="text" id="country" placeholder="Enter country">
+
+    <label>State / Region</label>
+    <input type="text" id="state" placeholder="Enter state or region">
+
+    <label>City</label>
+    <input type="text" id="city" placeholder="Enter city">
+
+    <label>Home Address</label>
+    <input type="text" id="address" placeholder="Enter residential address">
+
+    <label>Postal Code</label>
+    <input type="text" id="postalCode" placeholder="Enter postal code">
+
+    <label>ID Type</label>
+    <input type="text" id="idType" placeholder="National ID / Passport / Driver License">
+
+    <label>ID Number</label>
+    <input type="text" id="idNumber" placeholder="Enter ID number">
+
+    <button onclick="submitKYC()">
+        Submit For Verification
+    </button>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/auth.js"></script>  
+
+<script>
+/* =========================
+   STATE
+========================= */
+
+
+let currentUser = null;
+
+const statusText = document.getElementById("kycStatus");
+
+function updateStatus(status) {
+    if (!statusText) return;
+    statusText.innerText = status;
+    statusText.className = "status " + status;
+}
+
+async function loadCurrentUser() {
+    
+    console.log("tb_currentUser:",
+        localStorage.getItem("tb_currentUser"));
+    
+    const auth = getCurrentUser();
+    
+    console.log("Parsed user:", auth);
+    
+    // ✅ HARD STOP if no user
+    if (!auth || !auth.id) {
+        console.warn("No valid session found → redirecting");
+        window.location.href = "login.html";
+        return;
+    }
+    
+    const { data, error } = await supabaseClient
+        .from("users")
+        .select("*")
+        .eq("id", auth.id)
+        .single();
+    
+    console.log("Supabase result:", data);
+    console.log("Supabase error:", error);
+    
+    // ✅ FIXED CHECK (important)
+    if (!data) {
+        console.warn("User not found in database → redirecting");
+        window.location.href = "login.html";
+        return;
+    }
+    
+    if (error) {
+        console.error("Supabase error:", error);
+        alert("Database error loading user");
+        return;
+    }
+    
+    currentUser = data;
+    
+    updateStatus(
+        currentUser.kyc_status ||
+        currentUser.kycStatus ||
+        "NOT_SUBMITTED"
+    );
+}
+
+
+/* =========================
+   INIT (RUN ONCE ONLY)
+========================= */
+
+(async function initKYC() {
+    await loadCurrentUser();
+})();
+
+/* =========================
+   FILE CONVERSION
+========================= */
+
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+    });
+}
+
+async function uploadToSupabase(file) {
+
+    const fileName = `${Date.now()}_${file.name}`;
+
+    const { data, error } = await supabaseClient
+        .storage
+        .from("kyc-docs")
+        .upload(fileName, file);
+
+    if (error) {
+        console.error("Upload error:", error);
+        throw error;
+    }
+
+    const { data: publicUrl } = supabaseClient
+        .storage
+        .from("kyc-docs")
+        .getPublicUrl(fileName);
+
+    return publicUrl.publicUrl;
+}
+
+/* =========================
+   SUBMIT KYC (SUPABASE ONLY)
+========================= */
+
+async function submitKYC() {
+
+    if (!currentUser) {
+        alert("User not loaded");
+        return;
+    }
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const dob = document.getElementById("dob").value;
+    const country = document.getElementById("country").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const postalCode = document.getElementById("postalCode").value.trim();
+    const idType = document.getElementById("idType").value.trim();
+    const idNumber = document.getElementById("idNumber").value.trim();
+
+    const frontFile = document.getElementById("idFront").files[0];
+    const backFile = document.getElementById("idBack").files[0];
+
+    if (
+        !fullName || !dob || !country || !state ||
+        !city || !address || !postalCode ||
+        !idType || !idNumber || !frontFile
+    ) {
+        alert("Please complete all fields");
+        return;
+    }
+
+    try {
+
+        /* =========================
+           1. UPLOAD FILES TO SUPABASE STORAGE
+        ========================= */
+
+        const uploadFile = async (file) => {
+            const fileName = `${currentUser.id}/${Date.now()}-${file.name}`;
+
+            const { data, error } = await supabaseClient
+                .storage
+                .from("kyc-docs")
+                .upload(fileName, file, {
+                    cacheControl: "3600",
+                    upsert: true
+                });
+
+            if (error) {
+                console.error("Upload error:", error);
+                throw error;
+            }
+
+            const { data: publicUrl } = supabaseClient
+                .storage
+                .from("kyc-docs")
+                .getPublicUrl(data.path);
+
+            return publicUrl.publicUrl;
+        };
+
+        const frontUrl = await uploadFile(frontFile);
+        const backUrl = backFile ? await uploadFile(backFile) : null;
+
+        /* =========================
+           2. UPDATE SUPABASE USER
+        ========================= */
+
+        const { error } = await supabaseClient
+            .from("users")
+            .update({
+                kycData: {
+                    fullName,
+                    dob,
+                    country,
+                    state,
+                    city,
+                    address,
+                    postalCode,
+                    idType,
+                    idNumber,
+                    frontImage: frontUrl,
+                    backImage: backUrl,
+                    submittedAt: new Date().toISOString()
+                },
+                kycStatus: "PENDING"
+            })
+            .eq("id", currentUser.id);
+
+        if (error) {
+            console.error("KYC ERROR:", error);
+
+            alert(
+                "KYC submission failed:\n" +
+                (error.message || JSON.stringify(error))
+            );
+
+            return;
+        }
+
+        /* =========================
+           3. REFRESH UI
+        ========================= */
+
+        await loadCurrentUser();
+        updateStatus("PENDING");
+
+        alert("KYC submitted successfully");
+
+    } catch (err) {
+        console.error("Submit error:", err);
+        alert("Something went wrong during upload");
+    }
+}
+    
+</script>
+</body>
+</html>
