@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FBI Digital shield- Dashboard</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+/* =========================
+   T.B GLOBAL DESIGN SYSTEM
+   (MATCHES INDEX.HTML EXACTLY)
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e1b4b, #020617);
+    color: white;
+}
+
+/* =========================
+   SECTION WRAPPER
+========================= */
+
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* =========================
+   DASHBOARD CONTAINER
+========================= */
+
+.dashboard-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* =========================
+   WELCOME BOX
+========================= */
+
+.welcome-box {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   BALANCE CARD
+========================= */
+
+.balance-card {
+    background: linear-gradient(45deg, #9333ea, #ec4899);
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.balance-card h1 {
+    font-size: 42px;
+    margin-top: 10px;
+}
+
+/* =========================
+   DASHBOARD GRID
+========================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 20px;
+}
+
+/* =========================
+   DASHBOARD CARD
+========================= */
+
+.dashboard-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.dashboard-card h3 {
+    margin-bottom: 15px;
+}
+
+/* =========================
+   TRANSACTION ITEM
+========================= */
+
+.transaction-item {
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    margin-bottom: 10px;
+    color: #cbd5f5;
+}
+
+/* =========================
+   SECURITY STATUS
+========================= */
+
+.status-safe {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary {
+    background: linear-gradient(45deg, #9333ea, #ec4899);
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.secondary {
+    background: transparent;
+    border: 1px solid #555;
+    padding: 15px 25px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.big-action {
+    width: 100%;
+    font-size: 18px;
+    padding: 18px 25px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.action-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.action-row .secondary {
+    flex: 1;
+}
+
+.secondary {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 14px 20px;
+    border-radius: 30px;
+    color: #cbd5f5;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.secondary:hover {
+    background: rgba(255,255,255,0.05);
+    color: white;
+}
+
+@media (max-width: 500px) {
+    .action-row {
+        flex-direction: row;
+    }
+}
+
+/* =========================
+   LOGOUT BUTTON
+========================= */
+
+.logout-btn {
+    margin-top: 25px;
+    width: 100%;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.footer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-logo-img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.footer-logo-text {
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+}
+
+.tagline {
+    margin-top: 10px;
+    color: #e879f9;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+p {
+    color: #cbd5f5;
+}
+
+h1, h2, h3 {
+    margin-bottom: 15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔝 NAVBAR -->
+<header class="navbar">
+
+    <div class="logo">
+        <img src="https://www.ic3.gov/img/fbi_seal_new.webp" class="logo-img">
+
+        <div class="logo-text">
+            FBI Digital Shield- vault
+        </div>
+    </div>
+
+</header>
+
+<!-- 📊 DASHBOARD -->
+<section class="dashboard-container">
+
+    <!-- 👋 WELCOME -->
+    <div class="welcome-box">
+        <h2 id="welcomeText">Welcome</h2>
+
+        <p style="margin-top:10px; color:#cbd5f5;">
+            Your vault protection system is active.
+        </p>
+    </div>
+
+    <!-- 💰 BALANCE -->
+    <div class="balance-card">
+
+        <p>Total Secured Balance</p>
+
+        <h1 id="balanceAmount">$0.00</h1>
+
+    </div>
+
+    <!-- 📦 GRID -->
+    <div class="dashboard-grid">
+
+        <!-- 📜 TRANSACTIONS -->
+        <div class="dashboard-card">
+
+            <h3>Transaction History</h3>
+
+            <div id="transactionList">
+
+                <div class="transaction-item">
+                    No transactions yet
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 🔐 SECURITY -->
+        <div class="dashboard-card">
+
+
+            <h3>Security Status</h3>
+
+            <p class="status-safe">
+                ✔ Vault Protected
+            </p>
+
+            <br>
+
+            <p style="color:#cbd5f5;">
+                Fraud monitoring active
+            </p>
+
+            <p style="color:#cbd5f5; margin-top:8px;">
+                2FA Enabled
+            </p>
+
+        </div>
+
+<!-- ⚡ QUICK ACTIONS -->
+<div class="dashboard-card">
+
+    <h3>Quick Actions</h3>
+
+    <!-- MAIN ACTION (BIG) -->
+    <button class="primary big-action" onclick="goToSecureFunds()">
+        Secure Funds
+    </button>
+
+    <!-- SECONDARY ACTIONS -->
+   <div class="action-row">
+
+    <button class="secondary" onclick="alert('Withdraw coming soon')">
+        Withdraw Funds
+    </button>
+
+    <button class="secondary" onclick="goToKYC()">
+        KYC Verification
+    </button>
+
+</div>
+
+</div>
+
+        <!-- 👤 ACCOUNT INFO -->
+        <div class="dashboard-card">
+
+            <h3>Account Information</h3>
+
+            <p id="userEmail" style="color:#cbd5f5;"></p>
+
+            <br>
+
+            <p style="color:#cbd5f5;">
+                Status: Active
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- 🚪 LOGOUT -->
+    <button class="primary logout-btn" onclick="logoutUser()">
+        Logout
+    </button>
+
+</section>
+
+<!-- 📜 FOOTER -->
+<footer>
+
+    <div class="footer-logo">
+
+        <img src="https://www.ic3.gov/img/fbi_seal_new.webp"
+        class="footer-logo-img">
+
+        <div class="footer-logo-text">
+            FBI Digital shield
+        </div>
+
+    </div>
+
+    <p>
+        FBI Digital Shield is a conceptual financial protection platform designed for temporary fund security.
+    </p>
+
+    <p class="tagline">
+        FBI Digital Shield – Your Money, Secured When It Matters Most
+    </p>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/auth.js"></script>
+
+<script>
+
+async function initDashboard() {
+
+    const session = getCurrentUser();
+
+    if (!session) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // 1. Fetch latest user from Supabase
+    const currentUser = await fetchUser(session.id);
+
+    if (!currentUser) {
+        window.location.href = "login.html";
+        return;
+    }
+
+localStorage.setItem(
+    "tb_currentUser",
+    JSON.stringify(currentUser)
+);
+
+    // 2. Render user info
+    document.getElementById("welcomeText").innerText =
+        "Welcome " + currentUser.name;
+
+    document.getElementById("balanceAmount").innerText =
+        "$" + (currentUser.balance || 0);
+
+    document.getElementById("userEmail").innerText =
+        currentUser.email;
+
+    // 3. Load transactions
+    const transactions = await loadTransactions(currentUser.id);
+
+    renderTransactions(transactions);
+}
+
+initDashboard();
+
+async function loadTransactions(userId) {
+
+    const { data, error } = await supabaseClient
+        .from("transactions")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.log(error);
+        return [];
+    }
+
+    return data;
+}
+
+function renderTransactions(data) {
+
+    const container = document.getElementById("transactionList");
+
+    if (!container) return;
+
+    if (!data || data.length === 0) {
+        container.innerHTML =
+            "<div class='transaction-item'>No transactions yet</div>";
+        return;
+    }
+
+    container.innerHTML = "";
+
+    data.forEach(tx => {
+
+        const div = document.createElement("div");
+        div.className = "transaction-item";
+
+        div.innerHTML = `
+            <b>${tx.type}</b><br>
+            $${tx.amount} - ${tx.method}<br>
+            <small>${new Date(tx.created_at).toLocaleString()}</small>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+async function fetchUser(userId) {
+    const { data, error } = await supabaseClient
+        .from("users")
+        .select("*")
+        .eq("id", userId)
+        .single();
+
+    if (error) {
+        console.log("User fetch error:", error);
+        return null;
+    }
+
+    return data;
+}
+
+function goToSecureFunds() {
+    window.location.href = "secure-funds.html";
+}
+
+function goToKYC() {
+    window.location.href = "verification.html";
+}
+
+</script>
+</body>
+</html>
