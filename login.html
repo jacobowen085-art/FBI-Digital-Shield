@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - FBI Digital Shield</title>
+
+<style>
+/* =========================
+   T.B LOGIN PAGE (EXACT DESIGN MATCH)
+========================= */
+html { scroll-behavior: smooth; }
+
+/* PAGE BACKGROUND INHERITS INDEX STYLE */
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e1b4b, #020617);
+    color: white;
+
+    min-height: 100vh;
+}
+
+/* CENTER SECTION */
+.section {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    overflow: hidden;
+}
+
+/* LOGIN CARD (same glass system as homepage cards) */
+.auth-form {
+    width: 100%;
+    max-width: 380px;
+    margin: 0;
+    position: relative;
+    padding: 25px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* TITLE */
+.auth-form h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+/* INPUTS (same vibe as homepage UI) */
+.auth-form input {
+    width: 95%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.2);
+    color: white;
+    outline: none;
+}
+
+/* INPUT FOCUS (purple glow like index buttons) */
+.auth-form input:focus {
+    border-color: #9333ea;
+    background: rgba(255,255,255,0.08);
+}
+
+.remember-box {
+    text-align: left;
+    margin-top: 12px;
+}
+
+.remember-box label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 14px;
+    color: #cbd5f5;
+
+    cursor: pointer;
+
+    padding: 10px 12px;
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+
+    transition: 0.2s ease;
+}
+
+.remember-box label:hover {
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-1px);
+}
+
+.remember-box input {
+    width: 16px;
+    height: 16px;
+    accent-color: #9333ea;
+}
+
+/* LOGIN BUTTON (EXACT SAME AS INDEX .primary) */
+.auth-form .primary {
+    width: 100%;
+    margin-top: 15px;
+    background: linear-gradient(45deg, #9333ea, #ec4899);
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* TEXT LINKS */
+.auth-form p {
+    margin-top: 15px;
+    color: #cbd5f5;
+}
+
+.auth-form a {
+    color: #e879f9;
+    text-decoration: none;
+}
+
+/* OPTIONAL SMALL MATCHING DETAIL */
+.auth-form input::placeholder {
+    color: #94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<section class="section">
+
+    <div class="auth-form">
+
+        <h2 class="auth-title">Login to FBI Digital Shield</h2>
+
+        <form onsubmit="loginUser(event)">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+
+<div class="remember-box">
+    <label>
+        <input type="checkbox" id="rememberMe">
+        <span>Remember me</span>
+    </label>
+</div>
+
+            <button class="primary">Login</button>
+        </form>
+
+        <p>Don’t have an account? <a href="signup.html">Sign up</a></p>
+
+    </div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="assets/js/auth.js"></script>
+<script>
+async function loginUser(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    
+    const { data, error } = await supabaseClient
+        .from("users")
+        .select("*")
+        .eq("email", email)
+        .eq("password", password)
+        .single();
+    
+    if (error || !data) {
+        console.log(error);
+        alert("Invalid login credentials");
+        return;
+    }
+    
+    localStorage.setItem("tb_currentUser", JSON.stringify(data));
+    
+    alert("Login successful!");
+    
+    window.location.href =
+        data.role === "admin" ?
+        "admin.html" :
+        "dashboard.html";
+}
+
+</script>
+
+
+</body>
+</html>
