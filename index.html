@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FBI Digital Shield</title>
+<style>
+    
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e1b4b, #020617);
+    color: white;
+}
+
+/* 🔝 NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+/* 📜 FOOTER LOGO */
+/* 📜 FOOTER */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* 🧩 FOOTER LOGO */
+.footer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-logo-img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.footer-logo-text {
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+}
+
+.tagline {
+    margin-top: 10px;
+    color: #e879f9;
+}
+
+
+/* ☰ HAMBURGER */
+@media (max-width: 768px) {
+    
+.menu-toggle {
+    display: flex;
+
+    font-size: 34px;
+    color: white;
+    cursor: pointer;
+
+    margin-left: auto;
+
+    padding: 4px 10px;
+
+    line-height: 1;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(1.05);
+}
+   
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 18px 20px;
+    width: 100%;
+}   
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 280px;
+        height: 100vh;
+        
+        display: flex;
+        flex-direction: column;
+        
+        background: rgba(15, 23, 42, 0.92);
+        backdrop-filter: blur(16px);
+        
+        padding: 90px 20px;
+        gap: 14px;
+        
+        transition: 0.35s ease;
+          z-index: 1001;
+    }
+    
+    /* 🔥 EACH LINK BECOMES A CARD */
+    .nav-menu a {
+        padding: 14px 16px;
+        border-radius: 14px;
+        
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        
+        font-size: 15px;
+        font-weight: 500;
+        
+        color: #cbd5f5;
+        text-decoration: none;
+        
+        transition: 0.25s ease;
+    }
+    
+    .nav-menu a:hover {
+        background: rgba(255, 255, 255, 0.10);
+        transform: translateX(6px);
+        color: white;
+    }
+    
+    /* 🔥 SEPARATE BUTTON LOOK */
+    .nav-btn {
+        margin-top: 10px;
+        width: 100%;
+        padding: 14px;
+        
+        border-radius: 14px;
+        
+        font-weight: 600;
+        text-align: center;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+   
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.65);
+
+    display: none;
+
+    z-index: 1000;  /* very important */
+}
+
+.backdrop.active {
+    display: block !important;
+}
+ 
+}
+
+.nav-btn {
+    background: linear-gradient(45deg, #9333ea, #ec4899);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+/* 🛡️ HERO */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-image:
+        linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.9)),
+        url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80");
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    max-width: 700px;
+}
+
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom:33px;
+}
+
+.hero p {
+    max-width: 330px;
+    margin-bottom:30px;
+    color: #cbd5f5;
+}
+
+.hero-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.primary {
+    background: linear-gradient(45deg, #9333ea, #ec4899);
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    color: white;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.secondary {
+    background: transparent;
+    border: 1px solid #555;
+    padding: 15px 25px;
+    border-radius: 30px;
+    color: white;
+    margin: 10px;
+}
+
+.primary,
+.secondary{
+    transition: all 0.25s ease;
+}
+
+.primary:hover{
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 25px rgba(147,51,234,0.35);
+}
+
+.secondary:hover{
+    background: rgba(255,255,255,0.08);
+
+    border-color: rgba(255,255,255,0.25);
+}
+
+.primary:active,
+.secondary:active{
+    transform: scale(0.98);
+}
+
+/* 📦 SECTIONS */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    margin-bottom: 30px;
+}
+
+/* 🧱 GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* 🪪 CARD */
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 24px;
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    transition: all 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    background: rgba(255,255,255,0.08);
+
+    border-color: rgba(147,51,234,0.4);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+#faqSection .card{
+    text-align: left;
+}
+
+#faqSection .card h3{
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+#faqSection .card p{
+    color: #cbd5f5;
+    line-height: 1.6;
+}
+
+.tagline {
+    margin-top: 10px;
+    color: #e879f9;
+} 
+
+  
+@media (max-width:768px){
+
+    .hero{
+        padding: 40px 20px;
+    }
+
+    .hero h1{
+        font-size: 32px;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .hero p{
+        max-width: 90%;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .hero-buttons{
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-buttons button{
+        width: 100%;
+        max-width: 300px;
+    }
+
+}  
+
+#faqSection{
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+    
+</style>
+</head>
+
+<body>
+
+    <!-- 🔝 NAVBAR -->
+<header class="navbar">
+
+    <div class="logo">
+        <img src="https://www.ic3.gov/img/fbi_seal_new.webp" class="logo-img">
+        <div class="logo-text">FBI Digital Shield</div>
+        </div>
+
+    <!-- ☰ HAMBURGER -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <!-- 📱 MENU -->
+    
+    <nav id="navMenu" class="nav-menu">
+        <a href="#home" onclick="closeMenu()">Home</a>
+        <a href="#" onclick="goToSecureFunds(); closeMenu()">Secure Funds</a>
+        <a href="#how-it-works" onclick="closeMenu()">How It Works</a>
+
+       <a href="#security" onclick="closeMenu()">Security</a>
+        <a href="#support" onclick="closeMenu()">Support</a>
+        <a href="#" onclick="goToKYC(); closeMenu()">KYC Verification</a>
+        <button class="nav-btn" onclick="goToDashboard(); closeMenu()">Access Vault</button>
+    </nav>
+    
+
+<!-- BACKDROP -->
+<div id="backdrop" class="backdrop" onclick="closeMenu()"></div>
+
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2400&q=80">
+
+</header>
+
+<!-- 🛡️ HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Stay in Control When Your Money Feels at Risk</h1>
+
+        <p>
+            FBI Digital Shield's SecureVault helps you temporarily protect your funds during 
+            suspicious or unsafe banking situations.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="primary" onclick="goToSecureFundsFromHero()">
+    🔒 Secure Funds Now
+</button>
+           <button
+class="secondary"
+onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+📖 Learn More
+</button>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 💡 HOW IT WORKS -->
+<section class="section" id="how-it-works">
+    <h2>How It Works</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Create Account</h3>
+            <p>Secure sign-up with identity verification</p>
+        </div>
+
+        <div class="card">
+            <h3>Transfer Funds</h3>
+            <p>Move money from your current bank</p>
+        </div>
+
+        <div class="card">
+            <h3>Funds Secured</h3>
+            <p>Stored in protected vault systems</p>
+        </div>
+
+        <div class="card">
+            <h3>Withdraw Anytime</h3>
+            <p>Return funds when safe</p>
+        </div>
+    </div>
+</section>
+
+<!-- 🔐 SECURITY -->
+<section class="section" id="security">
+    <h2>Why FBI Digital Shield is Secure</h2>
+
+    <div class="grid">
+        <div class="card">Advanced encryption technology</div>
+        <div class="card">Two-factor authentication (2FA)</div>
+        <div class="card">Real-time fraud monitoring</div>
+        <div class="card">Secure vault storage system</div>
+        <div class="card">Account activity alerts</div>
+    </div>
+</section>
+
+<!-- ⚠️ USE CASES -->
+<section class="section">
+    <h2>When to Use FBI Digital Shield</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Good Use Cases</h3>
+            <p>Suspicious bank activity</p>
+            <p>Phishing or scam exposure</p>
+            <p>Unauthorized login alerts</p>
+        </div>
+
+        <div class="card">
+            <h3>Avoid Using When</h3>
+            <p>No security threat exists</p>
+            <p>Everyday transactions</p>
+        </div>
+    </div>
+</section>
+
+<!-- ☎️ SUPPORT -->
+<section class="section" id="support">
+    <h2>Support</h2>
+
+    <div class="grid">
+
+        <div class="card" onclick="openLiveChat()"
+        style="cursor:pointer;">
+            <h3>💬 Live Chat</h3>
+            <p>Talk with our support team</p>
+        </div>
+
+       <div class="card"
+onclick="window.location.href='mailto:fbi.cid.fcs@gmail.com?subject=Support Request&body=Hello FBI Digital Shield Support,%0D%0A%0D%0AI need assistance with:'"
+style="cursor:pointer;">
+
+    <h3>📧 Email Support</h3>
+    <p>Send a message to support</p>
+
+</div>
+
+    <div class="card"
+onclick="toggleFAQ()"
+style="cursor:pointer;">
+
+    <h3>❓ Help Center</h3>
+    <p>Frequently Asked Questions</p>
+
+</div>
+</section>
+
+<section
+id="faqSection"
+class="section"
+style="display:none;">
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>How do I secure my funds?</h3>
+            <p>
+                Open Secure Funds, enter an amount,
+                choose a transfer method and submit
+                your request for approval.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Why is my deposit pending?</h3>
+            <p>
+                Deposits require administrator approval
+                before they are credited to your account.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Why do I need KYC verification?</h3>
+            <p>
+                KYC helps verify ownership of accounts
+                and unlocks additional platform features.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Can I withdraw funds anytime?</h3>
+            <p>
+                Withdrawals may require security checks
+                before processing.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Is my account protected?</h3>
+            <p>
+                The platform includes security monitoring,
+                verification procedures and account controls.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>How do I contact support?</h3>
+            <p>
+                Use Email Support from the homepage
+                to send a message directly.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 📜 FOOTER -->
+<footer>
+
+    <!-- LOGO -->
+    <div class="footer-logo">
+        <img src="https://www.ic3.gov/img/fbi_seal_new.webp" class="footer-logo-img">
+        <div class="footer-logo-text">FBI Digital Shield</div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <p>
+        FBI Digital Shield is a conceptual financial protection platform designed for temporary fund security.
+        It is not a licensed bank. All services are for demonstration purposes in this project.
+    </p>
+
+    <!-- TAGLINE -->
+    <p class="tagline">
+        FBI Digital Shield – Your Money, Secured When It Matters Most
+    </p>
+
+</footer>
+
+<script>
+
+const navMenu = document.getElementById("navMenu");
+const backdrop = document.getElementById("backdrop");
+
+
+/* MENU */
+function toggleMenu() {
+    navMenu.classList.toggle("active");
+    backdrop.classList.toggle("active");
+
+    // lock background scroll when menu is open
+    if (navMenu.classList.contains("active")) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "auto";
+    }
+}
+
+function closeMenu() {
+    navMenu.classList.remove("active");
+    backdrop.classList.remove("active");
+    document.body.style.overflow = "auto";
+}
+
+/* ROUTING */
+function goToSecureFunds() {
+
+    const isLoggedIn = localStorage.getItem("tb_loggedIn") === "true";
+
+    if (!isLoggedIn) {
+        localStorage.setItem("tb_redirectAfterLogin", "secure-funds.html");
+        window.location.href = "login.html";
+        return;
+    }
+
+    window.location.href = "secure-funds.html";
+}
+
+function goToKYC() {
+    const isLoggedIn = localStorage.getItem("tb_loggedIn") === "true";
+    
+    if (!isLoggedIn) {
+        localStorage.setItem("tb_redirectAfterLogin", "verification.html");
+        window.location.href = "login.html";
+        return;
+    }
+    
+    window.location.href = "verification.html";
+}
+
+function goToDashboard() {
+
+    const isLoggedIn =
+        localStorage.getItem("tb_loggedIn") === "true";
+
+    if (!isLoggedIn) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    window.location.href = "dashboard.html";
+}
+
+function goToSecureFundsFromHero() {
+
+    const isLoggedIn = localStorage.getItem("tb_loggedIn") === "true";
+
+    if (!isLoggedIn) {
+        localStorage.setItem("tb_redirectAfterLogin", "secure-funds.html");
+        window.location.href = "login.html";
+        return;
+    }
+
+    window.location.href = "secure-funds.html";
+}
+
+function openLiveChat() {
+    alert("Live Chat is coming soon.");
+}
+
+function toggleFAQ() {
+
+    const faq =
+        document.getElementById("faqSection");
+
+    if (faq.style.display === "none") {
+
+        faq.style.display = "block";
+
+        faq.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    } else {
+
+        faq.style.display = "none";
+    }
+}
+
+</script>
+</body>
+</html>
