@@ -286,19 +286,62 @@ async function signupUser(event) {
 
     if (error) {
         console.log(error);
-        alert(error.message);
+        const message = document.createElement("div");
+
+message.className = "tb-message";
+
+message.textContent = error.message;
+
+document.body.appendChild(message);
+
+setTimeout(() => {
+    message.classList.add("show");
+}, 50);
+
+setTimeout(() => {
+
+    message.classList.remove("show");
+
+    setTimeout(() => {
+        message.remove();
+    }, 300);
+
+}, 4000);
         return;
     }
 
     // 🔥 IMPORTANT: use REAL supabase user
     localStorage.setItem("tb_currentUser", JSON.stringify(data));
 
-    alert("Account created successfully!");
+    const message = document.createElement("div");
 
-    window.location.href =
-        role === "admin"
-            ? "admin.html"
-            : "dashboard.html";
+message.className = "tb-message";
+
+message.textContent = "Account created successfully!";
+
+document.body.appendChild(message);
+
+setTimeout(() => {
+    message.classList.add("show");
+}, 50);
+
+setTimeout(() => {
+
+    message.classList.remove("show");
+
+    setTimeout(() => {
+        message.remove();
+
+        window.location.href =
+            role === "admin"
+                ? "admin.html"
+                : "dashboard.html";
+
+    }, 300);
+
+}, 2000);
+
+return;
 }
 
 function togglePassword() {
