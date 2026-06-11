@@ -188,18 +188,65 @@ async function loginUser(event) {
     
     if (error || !data) {
         console.log(error);
-        alert("Invalid login credentials");
+        const message = document.createElement("div");
+
+message.className = "tb-message";
+
+message.textContent = "Invalid login credentials";
+
+document.body.appendChild(message);
+
+setTimeout(() => {
+    message.classList.add("show");
+}, 50);
+
+setTimeout(() => {
+
+    message.classList.remove("show");
+
+    setTimeout(() => {
+        message.remove();
+    }, 300);
+
+}, 4000);
+
+return;
         return;
     }
     
     localStorage.setItem("tb_currentUser", JSON.stringify(data));
     
-    alert("Login successful!");
-    
-    window.location.href =
-        data.role === "admin" ?
-        "admin.html" :
-        "dashboard.html";
+    const message = document.createElement("div");
+
+message.className = "tb-message";
+
+message.textContent = "Login successful!";
+
+document.body.appendChild(message);
+
+setTimeout(() => {
+    message.classList.add("show");
+}, 50);
+
+setTimeout(() => {
+
+    message.classList.remove("show");
+
+    setTimeout(() => {
+
+        message.remove();
+
+        window.location.href =
+            data.role === "admin"
+                ? "admin.html"
+                : "dashboard.html";
+
+    }, 300);
+
+}, 2000);
+
+return;
+   
 }
 
 </script>
