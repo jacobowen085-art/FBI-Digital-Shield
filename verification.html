@@ -134,6 +134,55 @@ button{
 
 }
 
+/* =========================
+   GLOBAL MESSAGE POPUP
+========================= */
+
+.tb-message{
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    max-width:320px;
+    width:calc(100% - 40px);
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    backdrop-filter:blur(10px);
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    color:white;
+
+    z-index:99999;
+
+    opacity:0;
+    transform:translateY(-20px);
+
+    transition:0.3s ease;
+}
+
+.tb-message.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.tb-message.success{
+    border-color:rgba(16,185,129,0.45);
+}
+
+.tb-message.error{
+    border-color:rgba(239,68,68,0.45);
+}
+
+.tb-message.info{
+    border-color:rgba(147,51,234,0.45);
+    }
+    
 </style>
 </head>
 <body>
@@ -370,7 +419,10 @@ async function submitKYC() {
         !city || !address || !postalCode ||
         !idType || !idNumber || !frontFile
     ) {
-        alert("Please complete all fields");
+        showMessage(
+    "Please complete all fields",
+    "error"
+);
         return;
     }
 
@@ -435,10 +487,10 @@ async function submitKYC() {
         if (error) {
             console.error("KYC ERROR:", error);
 
-            alert(
-                "KYC submission failed:\n" +
-                (error.message || JSON.stringify(error))
-            );
+            showMessage(
+    "KYC submission failed",
+    "error"
+);
 
             return;
         }
@@ -450,13 +502,49 @@ async function submitKYC() {
         await loadCurrentUser();
         updateStatus("PENDING");
 
-        alert("KYC submitted successfully");
+        showMessage(
+    "KYC submitted successfully",
+    "success"
+);
 
     } catch (err) {
         console.error("Submit error:", err);
         alert("Something went wrong during upload");
     }
 }
+
+function showMessage(message, type = "info") {
+
+    const oldMessage =
+        document.querySelector(".tb-message");
+
+    if (oldMessage) {
+        oldMessage.remove();
+    }
+
+    const box = document.createElement("div");
+
+    box.className =
+        `tb-message ${type}`;
+
+    box.textContent = message;
+
+    document.body.appendChild(box);
+
+    setTimeout(() => {
+        box.classList.add("show");
+    }, 50);
+
+    setTimeout(() => {
+
+        box.classList.remove("show");
+
+        setTimeout(() => {
+            box.remove();
+        }, 300);
+
+    }, 3000);
+    }
     
 </script>
 </body>
