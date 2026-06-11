@@ -399,6 +399,48 @@ footer {
     }
 
 }
+
+/* =========================
+   MESSAGE POPUP
+========================= */
+
+.tb-message{
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    width:320px;
+    max-width:calc(100% - 40px);
+
+    padding:16px;
+
+    background:rgba(15,23,42,0.95);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:14px;
+
+    color:white;
+
+    border-left:4px solid #9333ea;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.4),
+    0 0 20px rgba(147,51,234,0.15);
+
+    z-index:99999;
+
+    opacity:0;
+
+    transform:translateY(-15px);
+
+    transition:all .3s ease;
+}
+
+.tb-message.show{
+    opacity:1;
+    transform:translateY(0);
+        }
     
 </style>
 </head>
@@ -717,7 +759,28 @@ function goToSecureFundsFromHero() {
 }
 
 function openLiveChat() {
-    alert("Live Chat is coming soon.");
+
+    const message = document.createElement("div");
+
+    message.className = "tb-message";
+
+    message.textContent = "Live Chat is coming soon.";
+
+    document.body.appendChild(message);
+
+    setTimeout(() => {
+        message.classList.add("show");
+    }, 50);
+
+    setTimeout(() => {
+
+        message.classList.remove("show");
+
+        setTimeout(() => {
+            message.remove();
+        }, 300);
+
+    }, 3000);
 }
 
 function toggleFAQ() {
