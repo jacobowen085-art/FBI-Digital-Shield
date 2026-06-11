@@ -139,6 +139,55 @@ body {
    BUTTONS
 ========================= */
 
+/* =========================
+   GLOBAL MESSAGE POPUP
+========================= */
+
+.tb-message{
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    max-width:320px;
+    width:calc(100% - 40px);
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    backdrop-filter:blur(10px);
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    color:white;
+
+    z-index:99999;
+
+    transform:translateY(-20px);
+    opacity:0;
+
+    transition:0.3s ease;
+}
+
+.tb-message.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.tb-message.success{
+    border-color:rgba(16,185,129,0.4);
+}
+
+.tb-message.error{
+    border-color:rgba(239,68,68,0.4);
+}
+
+.tb-message.info{
+    border-color:rgba(147,51,234,0.5);
+}
+
 .primary {
     background: linear-gradient(45deg, #9333ea, #ec4899);
     border: none;
@@ -267,7 +316,6 @@ footer {
     color: white;
 }
 
-   
 .tagline {
     margin-top: 10px;
     color: #e879f9;
@@ -285,23 +333,6 @@ h1, h2, h3 {
     margin-bottom: 15px;
 }
 
-.tb-message.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.tb-message.success{
-    border-color:rgba(16,185,129,0.4);
-}
-
-.tb-message.error{
-    border-color:rgba(239,68,68,0.4);
-}
-
-.tb-message.info{
-    border-color:rgba(147,51,234,0.5);
-}
-   
 </style>
 </head>
 
@@ -394,7 +425,7 @@ h1, h2, h3 {
     <!-- SECONDARY ACTIONS -->
    <div class="action-row">
 
-    <button class="secondary" onclick="showWithdrawMessage()">
+   <button class="secondary" onclick="showWithdrawMessage()">
     Withdraw Funds
 </button>
 
@@ -590,8 +621,8 @@ function showWithdrawMessage() {
         }, 300);
 
     }, 3000);
-   }
-   
+}
+
 </script>
 </body>
-</html>
+   </html>
