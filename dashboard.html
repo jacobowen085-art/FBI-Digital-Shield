@@ -376,9 +376,9 @@ h1, h2, h3 {
     <!-- SECONDARY ACTIONS -->
    <div class="action-row">
 
-    <button class="secondary" onclick="alert('Withdraw coming soon')">
-        Withdraw Funds
-    </button>
+    <button class="secondary" onclick="showWithdrawMessage()">
+    Withdraw Funds
+</button>
 
     <button class="secondary" onclick="goToKYC()">
         KYC Verification
@@ -549,6 +549,31 @@ function goToKYC() {
     window.location.href = "verification.html";
 }
 
+function showWithdrawMessage() {
+
+    const message = document.createElement("div");
+
+    message.className = "tb-message";
+
+    message.textContent = "Withdraw feature coming soon.";
+
+    document.body.appendChild(message);
+
+    setTimeout(() => {
+        message.classList.add("show");
+    }, 50);
+
+    setTimeout(() => {
+
+        message.classList.remove("show");
+
+        setTimeout(() => {
+            message.remove();
+        }, 300);
+
+    }, 3000);
+   }
+   
 </script>
 </body>
 </html>
